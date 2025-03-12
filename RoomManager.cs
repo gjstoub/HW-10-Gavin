@@ -3,6 +3,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     public GameObject[] theDoors;
+    public GameObject mmRoomPrefab;
     private Dungeon theDungeon;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,21 +36,43 @@ public class RoomManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool didChangeRoom = false;
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             //try to goto the north
+            didChangeRoom = Core.thePlayer.getCurrentRoom().tryToTakeExit("north");
+            GameObject newMMRoom = Instantiate(this.mmRoomPrefab);
+            Vector3 currPos = newMMRoom.transform.position;
+            Vector3 newPos;
+            newPos.x = currPos.x;
+            newPos.y = currPos.y;
+            newPos.z = currPos.z + 1.2f;
+            newMMRoom.transform.position = newPos;
+            
+            
         }
         else if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             //try to goto the west
+            didChangeRoom = Core.thePlayer.getCurrentRoom().tryToTakeExit("west");
+
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             //try to goto the east
+            didChangeRoom = Core.thePlayer.getCurrentRoom().tryToTakeExit("east");
+
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             //try to goto the south
+            didChangeRoom = Core.thePlayer.getCurrentRoom().tryToTakeExit("south");
+        }
+
+        //did we change rooms?
+        if(didChangeRoom)
+        {
+            this.setupRoom();
         }
     }
 }
