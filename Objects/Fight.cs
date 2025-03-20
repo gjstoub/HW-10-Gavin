@@ -21,8 +21,37 @@ public class Fight
 
     public void startFight()
     {
-        //should have the attacker and defender fight each until one of them dies.
-        //the attacker and defender should alternate between each fight round and
-        //the one who goes first was determined in the constructor.
+        Inhabitant currentAttacker = this.attacker;
+        Inhabitant currentDefender = this.defender;
+    
+        while (true)
+        {
+            Debug.Log(currentAttacker.GetName() + " attacks " + currentDefender.GetName());
+
+            int attackRoll = Random.Range(1, 21);
+            if (attackRoll >= currentDefender.GetAC())
+            {
+                int damage = Random.Range(1, 5);
+                currentDefender.TakeDamage(damage);
+                Debug.Log(currentAttacker.GetName() + " hits for " + damage + " damage!");
+
+            if (currentDefender.IsDead())
+            {
+                Debug.Log(currentDefender.GetName() + " has been defeated!");
+                break;
+            }
+        }
+        else
+        {
+            Debug.Log(currentAttacker.GetName() + " misses the attack.");
+            if (attackRoll == 1)
+            {
+                Debug.Log("**** Critical Miss! **** " + currentAttacker.GetName() + " stumbles!");
+            }
+        }
+
+        Inhabitant temp = currentAttacker;
+        currentAttacker = currentDefender;
+        currentDefender = temp;
     }
 }
