@@ -15,3 +15,27 @@ public abstract class Inhabitant
         this.ac = Random.Range(10, 20);
     }
 }
+public void TakeDamage(int damage)
+{
+    this.currHp -= damage;
+    if (this.currHp < 0)
+    {
+        this.currHp = 0;
+    }
+}
+
+public bool IsDead()
+{
+    return this.currHp <= 0;
+}
+
+public int GetAC()
+{
+    return this.ac;
+}
+
+public string GetName()
+{
+    return this.name;
+}
+
