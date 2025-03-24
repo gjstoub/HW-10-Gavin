@@ -4,7 +4,7 @@ public class Fight : MonoBehaviour
 {
     private Inhabitant attacker;
     private Inhabitant defender;
-    private float timeBetweenAttacks = 1f; // 1 second between each attack
+    private float timeBetweenAttacks = 1f;
     private float attackTimer = 0f;
     private bool isFighting = false;
 
@@ -17,19 +17,19 @@ public class Fight : MonoBehaviour
     public void StartFight()
     {
         isFighting = true;
-        attackTimer = timeBetweenAttacks; // Reset timer
+        attackTimer = timeBetweenAttacks;
     }
 
     void Update()
     {
         if (isFighting)
         {
-            attackTimer -= Time.deltaTime; // Decrease the timer based on elapsed time
+            attackTimer -= Time.deltaTime;
 
             if (attackTimer <= 0)
             {
                 ExecuteAttack();
-                attackTimer = timeBetweenAttacks; // Reset the timer after each attack
+                attackTimer = timeBetweenAttacks;
             }
         }
     }
@@ -50,7 +50,7 @@ public class Fight : MonoBehaviour
             if (currentDefender.IsDead())
             {
                 Debug.Log(currentDefender.GetName() + " has been defeated!");
-                isFighting = false; // End the fight
+                isFighting = false;
             }
         }
         else
@@ -62,7 +62,6 @@ public class Fight : MonoBehaviour
             }
         }
 
-        // Swap attacker and defender for the next round
         Inhabitant temp = currentAttacker;
         currentAttacker = currentDefender;
         currentDefender = temp;
