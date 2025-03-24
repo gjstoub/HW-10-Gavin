@@ -1,23 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Inhabitant
 {
-
-    private Room currentRoom;
+    public Slider healthBar;
 
     public Player(string name) : base(name)
     {
-        this.currentRoom = null;
+        this.healthBar = GameObject.Find("PlayerHealthBar").GetComponent<Slider>();
     }
 
-    public Room getCurrentRoom()
+    public void UpdateHealthBar()
     {
-        return this.currentRoom;
+        healthBar.value = (float)currHp / maxHp;
     }
-    
-    public void setCurrentRoom(Room r)
-    {
-        this.currentRoom = r;
-    }
-    
 }
