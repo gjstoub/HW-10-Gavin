@@ -12,6 +12,25 @@ public abstract class Inhabitant
         this.name = name;
         this.maxHp = Random.Range(30, 50);
         this.currHp = this.maxHp;
-        this.ac = Random.Range(10, 20);
+        this.ac = Random.Range(5, 12);
+    }
+
+    public string getName()
+    {
+        return this.name;
+    }   
+
+    public bool isDead()
+    {
+        return this.currHp <= 0;
+    }
+
+    public void takeDamage(int damage)
+    {
+        this.currHp -= damage;
+    }
+    public int getAC()
+    {
+        return this.ac;
     }
 }
