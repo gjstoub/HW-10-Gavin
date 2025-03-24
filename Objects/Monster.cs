@@ -1,19 +1,17 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monster : Inhabitant
 {
+    public Slider healthBar;
+
     public Monster(string name) : base(name)
     {
+        this.healthBar = GameObject.Find("MonsterHealthBar").GetComponent<Slider>();
     }
 
-    public int getCurrHP()
+    public void UpdateHealthBar()
     {
-        return this.currHp;
-    }
-
-    public string getName()
-    {
-        return this.name;
+        healthBar.value = (float)currHp / maxHp;
     }
 }
