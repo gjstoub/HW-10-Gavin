@@ -1,44 +1,56 @@
 using UnityEngine;
 
-public class Fight
+public class Fight : MonoBehaviour
 {
     private Inhabitant attacker;
     private Inhabitant defender;
+    private float timeBetweenAttacks = 1f; // 1 second between each attack
+    private float attackTimer = 0f;
+    private bool isFighting = false;
 
-    public Fight()
+    public Fight(Inhabitant attacker, Inhabitant defender)
     {
-        int roll = Random.Range(0, 20) + 1;
-        if (roll <= 10)
-        {
-            Debug.Log("Monster goes first");
-        }
-        else
-        {
-            Debug.Log("Player goes first");
-        }
-
+        this.attacker = attacker;
+        this.defender = defender;
     }
 
-    public void startFight()
+    public void StartFight()
     {
-        Inhabitant currentAttacker = this.attacker;
-        Inhabitant currentDefender = this.defender;
-    
-        while (true)
+        isFighting = true;
+        attackTimer = timeBetweenAttacks; // Reset timer
+    }
+
+    void Update()
+    {
+        if (isFighting)
         {
-            Debug.Log(currentAttacker.GetName() + " attacks " + currentDefender.GetName());
+            attackTimer -= Time.deltaTime; // Decrease the timer based on elapsed time
 
-            int attackRoll = Random.Range(1, 21);
-            if (attackRoll >= currentDefender.GetAC())
+            if (attackTimer <= 0)
             {
-                int damage = Random.Range(1, 5);
-                currentDefender.TakeDamage(damage);
-                Debug.Log(currentAttacker.GetName() + " hits for " + damage + " damage!");
+                ExecuteAttack();
+                attackTimer = timeBetweenAttacks; // Reset the timer after each attack
+            }
+        }
+    }
 
+    private void ExecuteAttack()
+    {
+        Inhabitant currentAttacker = attacker;
+        Inhabitant currentDefender = defender;
+
+        Debug.Log(currentAttacker.GetName() + " attacks " + currentDefender.GetName());
+
+        int attackRoll = Random.Range(1, 21);
+        if (attackRoll >= currentDefender.GetAC())
+        {
+            int damage = Random.Range(1, 5);
+            currentDefender.TakeDamage(damage);
+            Debug.Log(currentAttacker.GetName() + " hits for " + damage + " damage!");
             if (currentDefender.IsDead())
             {
                 Debug.Log(currentDefender.GetName() + " has been defeated!");
-                break;
+                isFighting = false; // End the fight
             }
         }
         else
@@ -50,6 +62,7 @@ public class Fight
             }
         }
 
+        // Swap attacker and defender for the next round
         Inhabitant temp = currentAttacker;
         currentAttacker = currentDefender;
         currentDefender = temp;
