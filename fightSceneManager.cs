@@ -39,30 +39,13 @@ public class fightSceneManager : MonoBehaviour
         this.timeSinceLastTimeDeltaTime += Time.deltaTime;
 
         //move the combatants
-        if(this.timeSinceLastTimeDeltaTime >= 0.25f)
-        {
-            if(!this.isPlayerTurn)
-            {
-                this.player.transform.position = this.playerStartPos;
-                this.monster.transform.position += this.attackMove;
-                this.isPlayerTurn = true;
-
-            }
-            else
-            {
-                this.monster.transform.position = this.monsterStartPos;
-                this.player.transform.position -= this.attackMove;
-                this.isPlayerTurn = false;
-            }
-        }
-
         if(this.timeSinceLastTimeDeltaTime >= 0.5f)
         {
             //happens every 1 seconds
             if(!this.theFight.isFightOver())
             {
                 //the attacker should visibly move
-                this.player.transform.position -= this.attackMove;
+                //this.player.transform.position -= this.attackMove;
                 this.theFight.takeASwing(this.player, this.monster);
             }
             else
