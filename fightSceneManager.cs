@@ -6,7 +6,6 @@ public class fightSceneManager : MonoBehaviour
     public GameObject player;
     public GameObject monster;
 
-    private Monster theMonster;
 
     private float timeSinceLastTimeDeltaTime = 0.0f;
 
@@ -24,10 +23,14 @@ public class fightSceneManager : MonoBehaviour
         this.playerStartPos = this.player.transform.position;
         this.monsterStartPos = this.monster.transform.position;
 
-        this.theMonster = new Monster("Goblin");
-        this.theFight = new Fight(this.theMonster);
+
+        print("Player Max HP: " + Core.thePlayer.getMaxHp());
+        print("Monster Max HP: " + Core.theMonster.getMaxHp());
+
+        
+        this.theFight = new Fight(Core.theMonster);
         print("Player AC: " + Core.thePlayer.getAC());
-        print("Monster AC: " + this.theMonster.getAC());
+        print("Monster AC: " + Core.theMonster.getAC());
 
         //f.startFight(player, monster); //we need this to be experienced over time, so we need it to be represented in Update
 
