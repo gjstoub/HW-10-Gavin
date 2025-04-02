@@ -7,6 +7,19 @@ public class Core
     public static Monster theMonster = new Monster("Goblin");
     public static Vector3 mmStartPos = new Vector3(14.95f, 0, 0);
 
-    //what kind of collection lets us store an arbitrary number of room names?
-    
+    public static List<string> roomNames = new List<string>();
+
+    public static void AddRoomName(string roomName)
+    {
+        roomNames.Add(roomName);
+    }
+
+    public static void DisplayRoomNames()
+    {
+        Debug.Log("Rooms in the Dungeon:");
+        foreach (string room in roomNames)
+        {
+            Debug.Log(room);
+        }
+    }
 }
